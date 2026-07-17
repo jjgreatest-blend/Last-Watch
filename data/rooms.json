@@ -1,1 +1,60 @@
-{"room":{"title":"Входной сектор","description":"Перед вами стойка, терминал и дверь."}}
+{
+  "reception": {
+    "id": "reception",
+
+    "title": "Приёмная",
+
+    "description": "В приёмной стоит тяжёлый запах сырости. Аварийные лампы мерцают под потолком. Перед вами находится [[desk]]. Справа расположен [[terminal]]. Впереди виднеется [[serviceDoor]].",
+
+    "objects": [
+      "desk",
+      "terminal",
+      "serviceDoor"
+    ],
+
+    "exits": {
+      "north": "hall"
+    },
+
+    "visited": false
+  },
+
+  "hall": {
+    "id": "hall",
+
+    "title": "Главный холл",
+
+    "description": "Просторный холл полицейского участка. На полу разбросаны бумаги. Слева находится [[locker]]. В конце коридора расположена [[archiveDoor]].",
+
+    "objects": [
+      "locker",
+      "archiveDoor"
+    ],
+
+    "exits": {
+      "south": "reception",
+      "north": "archive"
+    },
+
+    "visited": false
+  },
+
+  "archive": {
+    "id": "archive",
+
+    "title": "Архив",
+
+    "description": "Высокие стеллажи уходят в темноту. Между ними стоит [[safe]]. Возле стены находится [[cabinet]].",
+
+    "objects": [
+      "safe",
+      "cabinet"
+    ],
+
+    "exits": {
+      "south": "hall"
+    },
+
+    "visited": false
+  }
+}
