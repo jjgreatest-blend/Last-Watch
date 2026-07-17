@@ -1,0 +1,153 @@
+{
+  "events": [
+
+    {
+      "id": "gameStart",
+
+      "trigger": "gameStart",
+
+      "actions": [
+
+        {
+          "type": "journal",
+
+          "text": "Вы приходите в сознание внутри полицейского участка. Электричество работает с перебоями."
+        },
+
+        {
+          "type": "journal",
+
+          "text": "Необходимо найти выход и понять, что произошло."
+        }
+
+      ]
+    },
+
+
+
+    {
+      "id": "takeJournal",
+
+      "trigger": "takeItem",
+
+      "item": "visitorJournal",
+
+      "actions": [
+
+        {
+          "type": "journal",
+
+          "text": "Вы нашли журнал посетителей."
+        },
+
+        {
+          "type": "updateObject",
+
+          "object": "desk",
+
+          "description": "Стойка регистрации теперь пуста. На ней остались только следы пыли."
+        }
+
+      ]
+    },
+
+
+
+    {
+      "id": "firstVisitHall",
+
+      "trigger": "enterRoom",
+
+      "room": "hall",
+
+      "once": true,
+
+      "actions": [
+
+        {
+          "type": "journal",
+
+          "text": "В холле слышится далёкий металлический скрежет."
+        }
+
+      ]
+    },
+
+
+
+    {
+      "id": "terminalLocked",
+
+      "trigger": "inspectObject",
+
+      "object": "terminal",
+
+      "actions": [
+
+        {
+          "type": "message",
+
+          "text": "Терминал требует карту доступа."
+        }
+
+      ]
+    },
+
+
+
+    {
+      "id": "terminalUnlocked",
+
+      "trigger": "useItem",
+
+      "object": "terminal",
+
+      "item": "accessCard",
+
+      "actions": [
+
+        {
+          "type": "journal",
+
+          "text": "Терминал разблокирован."
+        },
+
+        {
+          "type": "unlockExit",
+
+          "room": "reception",
+
+          "exit": "north"
+        }
+
+      ]
+    },
+
+
+
+    {
+      "id": "openSafe",
+
+      "trigger": "solvePuzzle",
+
+      "puzzle": "safeCode",
+
+      "actions": [
+
+        {
+          "type": "giveItem",
+
+          "item": "flashlight"
+        },
+
+        {
+          "type": "journal",
+
+          "text": "Внутри сейфа найден фонарик."
+        }
+
+      ]
+    }
+
+  ]
+}
