@@ -246,49 +246,101 @@ function parseRoomText(text){
 
         /\[\[(.*?)\]\]/g,
 
-        function(match,name){
+        function(match,id){
 
-            return `<a href="#" onclick="inspectObject('${name}');return false;">${name}</a>`;
+            const object = Game.objects[id];
+
+            const title = object ? object.title : id;
+
+            return `<a class="game-link"
+                      href="#"
+                      onclick="inspectObject('${id}');return false;">
+                      ${title}
+                    </a>`;
 
         }
 
     );
 
 }
+function inspectObject(id){
 
-function inspectObject(name){
+    const object = Game.objects[id];
 
-    const room = Game.rooms[Game.currentRoom];
+    if(!object){
 
-    if(!room.objects[name]){
+        addJournal("Объект не найден.");
 
         return;
 
     }
 
-    const object = room.objects[name];
+    let html = "";
 
-    UI.roomDescription.innerHTML = `
+    html += `<h3>${object.title}</h3>`;
 
-<h3>${object.title}</h3>
+    html += `<p>${object.description}</p>`;
 
-<p>
+    html += "<br>";
 
-${object.description}
+    if(object.actions){
 
-</p>
+        object.actions.forEach(action=>{
 
-<br>
+            html += `
+<button
+class="objectButton"
+onclick="objectAction('${id}','${action.id}')">
+${action.text}
+</button>
+`;
+
+        });
+
+    }
+
+    html += `
+<br><br>
 
 <button onclick="returnToRoom()">
 
 Назад
 
 </button>
-
 `;
 
+    UI.roomDescription.innerHTML = html;
+
     addJournal("Осмотрен объект: " + object.title);
+
+}
+function objectAction(id,action){
+
+    const object = Game.objects[id];
+
+    switch(action){
+
+        case "inspect":
+
+            addJournal("Вы внимательно осматриваете " + object.title + ".");
+
+            break;
+
+        case "takeJournal":
+
+            addJournal("Получен предмет: Журнал посетителей.");
+
+            Game.players[Game.activePlayer].inventory.push("Журнал посетителей");
+
+            renderInventories();
+
+            break;
+
+        default:
+
+            addJournal("Пока это действие ещё не реализовано.");
+
+    }
 
 }
 
@@ -298,7 +350,16 @@ function returnToRoom(){
 
 }
 
-loadRooms();
+async function startGame(){
+
+    await loadObjects();
+
+    await loadRooms();
+
+    renderInventories();
+
+}
+startGame();
 
 /* =====================================================
    Build 0.2
