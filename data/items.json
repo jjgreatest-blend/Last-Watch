@@ -1,0 +1,61 @@
+{
+  "visitorJournal": {
+    "id": "visitorJournal",
+    "name": "Журнал посетителей",
+    "description": "Толстый журнал с записями о посетителях полицейского участка. Некоторые страницы вырваны.",
+    "stackable": false,
+    "usable": true,
+    "weight": 1,
+    "value": 0
+  },
+
+  "accessCard": {
+    "id": "accessCard",
+    "name": "Карта доступа",
+    "description": "Электронная карта сотрудника полиции. Позволяет открывать некоторые двери и пользоваться терминалами.",
+    "stackable": false,
+    "usable": true,
+    "weight": 1,
+    "value": 0
+  },
+
+  "storageKey": {
+    "id": "storageKey",
+    "name": "Ключ от склада",
+    "description": "Небольшой металлический ключ с биркой «Storage».",
+    "stackable": false,
+    "usable": true,
+    "weight": 1,
+    "value": 0
+  },
+
+  "flashlight": {
+    "id": "flashlight",
+    "name": "Фонарик",
+    "description": "Полицейский фонарь. Пока батарея полностью заряжена.",
+    "stackable": false,
+    "usable": true,
+    "weight": 2,
+    "value": 0
+  },
+
+  "firstAidKit": {
+    "id": "firstAidKit",
+    "name": "Аптечка",
+    "description": "Стандартная полицейская аптечка. Восстанавливает здоровье одного игрока.",
+    "stackable": false,
+    "usable": true,
+    "weight": 2,
+    "value": 0
+  },
+
+  "pistolAmmo": {
+    "id": "pistolAmmo",
+    "name": "Патроны 9 мм",
+    "description": "Стандартные полицейские патроны.",
+    "stackable": true,
+    "usable": false,
+    "weight": 1,
+    "value": 0
+  }
+}
