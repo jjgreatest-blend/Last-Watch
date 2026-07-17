@@ -322,23 +322,67 @@ function objectAction(id,action){
 
         case "inspect":
 
-            addJournal("Вы внимательно осматриваете " + object.title + ".");
+            UI.roomDescription.innerHTML = `
 
-            break;
+<h3>${object.title}</h3>
+
+<p>
+
+${object.inspect}
+
+</p>
+
+<br>
+
+<button onclick="returnToObject('${id}')">
+
+Назад
+
+</button>
+
+`;
+
+            addJournal("Вы внимательно осмотрели " + object.title + ".");
+
+        break;
 
         case "takeJournal":
 
-            addJournal("Получен предмет: Журнал посетителей.");
+            if(!Game.players[Game.activePlayer].inventory.includes("Журнал посетителей")){
 
-            Game.players[Game.activePlayer].inventory.push("Журнал посетителей");
+                Game.players[Game.activePlayer].inventory.push("Журнал посетителей");
 
-            renderInventories();
+                renderInventories();
 
-            break;
+                addJournal("Вы взяли журнал посетителей.");
+
+            }
+
+            UI.roomDescription.innerHTML = `
+
+<h3>${object.title}</h3>
+
+<p>
+
+Журнал теперь находится в вашем инвентаре.
+
+</p>
+
+<br>
+
+<button onclick="returnToObject('${id}')">
+
+Назад
+
+</button>
+
+`;
+
+        break;
 
         default:
 
-            addJournal("Пока это действие ещё не реализовано.");
+            addJournal("Это действие пока ещё не реализовано.");
 
     }
 
@@ -347,6 +391,11 @@ function objectAction(id,action){
 function returnToRoom(){
 
     showRoom(Game.currentRoom);
+
+}
+function returnToObject(id){
+
+    inspectObject(id);
 
 }
 
@@ -399,88 +448,6 @@ function getObjectTitle(id){
 
 }
 
-function parseRoomText(text){
 
-    return text.replace(
-
-        /\[\[(.*?)\]\]/g,
-
-        function(match,id){
-
-            const title = getObjectTitle(id);
-
-            return `<a href="#" onclick="inspectObject('${id}');return false;">${title}</a>`;
-
-        }
-
-    );
-
-}
-
-function inspectObject(id){
-
-    const object = Game.objects[id];
-
-    if(!object){
-
-        return;
-
-    }
-
-    let html = "";
-
-    html += `<h3>${object.title}</h3>`;
-
-    html += `<p>${object.description}</p>`;
-
-    html += "<br>";
-
-    object.actions.forEach(action=>{
-
-        html += `
-
-<button
-
-onclick="objectAction('${id}','${action.id}')">
-
-${action.text}
-
-</button>
-
-`;
-
-    });
-
-    html += "<br><br>";
-
-    html += `
-
-<button onclick="returnToRoom()">
-
-Назад
-
-</button>
-
-`;
-
-    UI.roomDescription.innerHTML = html;
-
-    addJournal("Осмотрен объект: " + object.title);
-
-}
-
-function objectAction(id,action){
-
-    addJournal(
-
-        "Действие: "
-
-        +
-
-        action
-
-    );
-
-}
 
 startGame();
