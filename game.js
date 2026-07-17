@@ -299,3 +299,127 @@ function returnToRoom(){
 }
 
 loadRooms();
+
+/* =====================================================
+   Build 0.2
+   Часть 3
+   Загрузка объектов
+===================================================== */
+
+Game.objects = {};
+
+async function loadObjects(){
+
+    const response = await fetch("data/objects.json");
+
+    Game.objects = await response.json();
+
+}
+
+async function startGame(){
+
+    await loadObjects();
+
+    await loadRooms();
+
+    renderInventories();
+
+}
+
+function getObjectTitle(id){
+
+    if(Game.objects[id]){
+
+        return Game.objects[id].title;
+
+    }
+
+    return id;
+
+}
+
+function parseRoomText(text){
+
+    return text.replace(
+
+        /\[\[(.*?)\]\]/g,
+
+        function(match,id){
+
+            const title = getObjectTitle(id);
+
+            return `<a href="#" onclick="inspectObject('${id}');return false;">${title}</a>`;
+
+        }
+
+    );
+
+}
+
+function inspectObject(id){
+
+    const object = Game.objects[id];
+
+    if(!object){
+
+        return;
+
+    }
+
+    let html = "";
+
+    html += `<h3>${object.title}</h3>`;
+
+    html += `<p>${object.description}</p>`;
+
+    html += "<br>";
+
+    object.actions.forEach(action=>{
+
+        html += `
+
+<button
+
+onclick="objectAction('${id}','${action.id}')">
+
+${action.text}
+
+</button>
+
+`;
+
+    });
+
+    html += "<br><br>";
+
+    html += `
+
+<button onclick="returnToRoom()">
+
+Назад
+
+</button>
+
+`;
+
+    UI.roomDescription.innerHTML = html;
+
+    addJournal("Осмотрен объект: " + object.title);
+
+}
+
+function objectAction(id,action){
+
+    addJournal(
+
+        "Действие: "
+
+        +
+
+        action
+
+    );
+
+}
+
+startGame();
