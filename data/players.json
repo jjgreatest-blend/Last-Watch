@@ -1,0 +1,35 @@
+{
+  "players": [
+    {
+      "id": 1,
+      "name": "Игрок 1",
+      "role": "Офицер полиции",
+      "description": "Опытный полицейский. Хорошо обращается с оружием и умеет оценивать опасные ситуации.",
+      "health": 100,
+      "maxHealth": 100,
+      "inventory": [],
+      "skills": {
+        "firearms": 2,
+        "observation": 1,
+        "strength": 1
+      },
+      "conditions": []
+    },
+
+    {
+      "id": 2,
+      "name": "Игрок 2",
+      "role": "Следователь",
+      "description": "Специалист по расследованиям. Лучше замечает детали и умеет работать с замками и документами.",
+      "health": 100,
+      "maxHealth": 100,
+      "inventory": [],
+      "skills": {
+        "lockpick": 2,
+        "investigation": 2,
+        "medicine": 1
+      },
+      "conditions": []
+    }
+  ]
+}
